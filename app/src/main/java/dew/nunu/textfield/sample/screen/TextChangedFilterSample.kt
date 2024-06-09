@@ -172,6 +172,8 @@ private fun BestFilterTextField() {
         }
     }
 
+    Text("Best Text Filter Applied")
+    Spacer(Modifier.height(8.dp))
     BasicTextField(
         value = text,
         onValueChange = supportEmojiContainedSequenceTextChanged,
