@@ -20,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.input.TextFieldValue
@@ -60,6 +61,10 @@ fun TextFieldValueScreen() {
         )
         Spacer(Modifier.height(16.dp))
         AnnotatedStringTextField()
+        Spacer(Modifier.height(16.dp))
+        SelectionTextField()
+        Spacer(Modifier.height(16.dp))
+        CompositionTextField()
     }
 }
 
@@ -119,6 +124,29 @@ private fun SelectionTextField() {
     Text("Selection: ${text.selection}")
 }
 
+@Composable
+private fun CompositionTextField() {
+    var text by remember {
+        mutableStateOf(
+            TextFieldValue()
+        )
+    }
+    Text("CompositionTextField Sample")
+    Spacer(Modifier.height(8.dp))
+    BasicTextField(
+        value = text,
+        onValueChange = {
+            text = it
+                .copy(composition = TextRange(0, 6))
+        },
+        modifier = Modifier
+            .background(Color.LightGray.copy(alpha = 0.2f))
+            .padding(16.dp)
+    )
+    Spacer(Modifier.height(8.dp))
+    Text("Composition: ${text.composition}")
+}
+
 @Preview
 @Composable
 private fun PreviewTextFieldValueScreen() {
@@ -146,5 +174,17 @@ private fun PreviewSelectionTextFieldScreen() {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         SelectionTextField()
+    }
+}
+
+@Preview
+@Composable
+private fun PreviewCompositionTextFieldScreen() {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        CompositionTextField()
     }
 }
