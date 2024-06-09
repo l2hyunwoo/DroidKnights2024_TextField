@@ -1,5 +1,6 @@
 package dew.nunu.textfield.sample.screen
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -9,7 +10,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -17,6 +17,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import dew.nunu.textfield.sample.ui.theme.TextFieldSampleTheme
@@ -83,6 +84,26 @@ fun TextChangedFilterSample() {
 }
 
 @Composable
+private fun NormalTextField() {
+    var text by remember { mutableStateOf("") }
+
+    val normalTextChanged: OnTextChanged = { new ->
+        text = new
+    }
+
+    Text("대조군")
+    Spacer(Modifier.height(8.dp))
+    BasicTextField(
+        value = text,
+        onValueChange = normalTextChanged,
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(Color.LightGray.copy(alpha = 0.2f))
+            .padding(16.dp)
+    )
+}
+
+@Composable
 private fun PrimitiveFilterTextField() {
     var text by remember { mutableStateOf("") }
 
@@ -91,12 +112,14 @@ private fun PrimitiveFilterTextField() {
             text = new
         }
     }
-
+    Text("Primitive Text Filter Applied")
+    Spacer(Modifier.height(8.dp))
     BasicTextField(
         value = text,
         onValueChange = normalTextChanged,
         modifier = Modifier
             .fillMaxWidth()
+            .background(Color.LightGray.copy(alpha = 0.2f))
             .padding(16.dp)
     )
 }
@@ -113,12 +136,14 @@ private fun GoodFilterTextField() {
         }
     }
 
-    TextField(
+    Text("Better Text Filter Applied")
+    Spacer(Modifier.height(8.dp))
+    BasicTextField(
         value = text,
         onValueChange = betterTextChanged,
-        label = { Text("Better Text Changed") },
         modifier = Modifier
             .fillMaxWidth()
+            .background(Color.LightGray.copy(alpha = 0.2f))
             .padding(16.dp)
     )
 }
@@ -147,12 +172,12 @@ private fun BestFilterTextField() {
         }
     }
 
-    TextField(
+    BasicTextField(
         value = text,
         onValueChange = supportEmojiContainedSequenceTextChanged,
-        label = { Text("Best Text Changed") },
         modifier = Modifier
             .fillMaxWidth()
+            .background(Color.LightGray.copy(alpha = 0.2f))
             .padding(16.dp)
     )
 }
@@ -166,6 +191,8 @@ private fun PrimitiveFilterTextFieldPreview() {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            NormalTextField()
+            Spacer(modifier = Modifier.height(16.dp))
             PrimitiveFilterTextField()
         }
     }
@@ -180,6 +207,8 @@ private fun GoodFilterTextFieldPreview() {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            NormalTextField()
+            Spacer(modifier = Modifier.height(16.dp))
             GoodFilterTextField()
         }
     }
@@ -194,6 +223,8 @@ private fun BestFilterTextFieldPreview() {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            NormalTextField()
+            Spacer(modifier = Modifier.height(16.dp))
             BestFilterTextField()
         }
     }
