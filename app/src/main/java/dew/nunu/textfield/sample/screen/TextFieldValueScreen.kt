@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -98,6 +99,26 @@ private fun AnnotatedStringTextField() {
     )
 }
 
+@Composable
+private fun SelectionTextField() {
+    var text by remember {
+        mutableStateOf(
+            TextFieldValue()
+        )
+    }
+    Text("SelectionTextField Sample")
+    Spacer(Modifier.height(8.dp))
+    BasicTextField(
+        value = text,
+        onValueChange = { text = it },
+        modifier = Modifier
+            .background(Color.LightGray.copy(alpha = 0.2f))
+            .padding(16.dp)
+    )
+    Spacer(Modifier.height(8.dp))
+    Text("Selection: ${text.selection}")
+}
+
 @Preview
 @Composable
 private fun PreviewTextFieldValueScreen() {
@@ -113,5 +134,17 @@ private fun PreviewAnnotatedStringTextField() {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         AnnotatedStringTextField()
+    }
+}
+
+@Preview
+@Composable
+private fun PreviewSelectionTextFieldScreen() {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        SelectionTextField()
     }
 }
