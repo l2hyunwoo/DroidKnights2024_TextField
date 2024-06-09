@@ -2,13 +2,14 @@ package dew.nunu.textfield.sample.screen
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -72,21 +73,128 @@ fun TextChangedFilterSample() {
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.Center
         ) {
-            BasicTextField(
-                value = text,
-                onValueChange = normalTextChanged,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(16.dp)
-            )
-            Spacer(modifier = Modifier.height(24.dp))
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center
-            ) {
+            PrimitiveFilterTextField()
+            Spacer(modifier = Modifier.height(16.dp))
+            GoodFilterTextField()
+            Spacer(modifier = Modifier.height(16.dp))
+            BestFilterTextField()
+        }
+    }
+}
 
+@Composable
+private fun PrimitiveFilterTextField() {
+    var text by remember { mutableStateOf("") }
+
+    val normalTextChanged: OnTextChanged = { new ->
+        if (new.length <= MAX_LENGTH) {
+            text = new
+        }
+    }
+
+    BasicTextField(
+        value = text,
+        onValueChange = normalTextChanged,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+    )
+}
+
+@Composable
+private fun GoodFilterTextField() {
+    var text by remember { mutableStateOf("") }
+
+    val betterTextChanged: OnTextChanged = {
+        text = when {
+            it.length <= MAX_LENGTH -> it
+            text.length == MAX_LENGTH -> text
+            else -> it.substring(0, MAX_LENGTH)
+        }
+    }
+
+    TextField(
+        value = text,
+        onValueChange = betterTextChanged,
+        label = { Text("Better Text Changed") },
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+    )
+}
+
+@Composable
+private fun BestFilterTextField() {
+    var text by remember { mutableStateOf("") }
+
+    val supportEmojiContainedSequenceTextChanged: OnTextChanged = { new ->
+        text = when {
+            new.length <= MAX_LENGTH -> new
+            text.length == MAX_LENGTH -> text
+            else -> {
+                val breakIterator = BreakIterator.getCharacterInstance()
+                breakIterator.setText(new)
+                var end = 0
+                while (true) {
+                    val newEnd = breakIterator.next()
+                    if (newEnd == BreakIterator.DONE || newEnd > MAX_LENGTH) {
+                        break
+                    }
+                    end = newEnd
+                }
+                new.substring(0, end)
             }
+        }
+    }
+
+    TextField(
+        value = text,
+        onValueChange = supportEmojiContainedSequenceTextChanged,
+        label = { Text("Best Text Changed") },
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun PrimitiveFilterTextFieldPreview() {
+    TextFieldSampleTheme {
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            PrimitiveFilterTextField()
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun GoodFilterTextFieldPreview() {
+    TextFieldSampleTheme {
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            GoodFilterTextField()
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun BestFilterTextFieldPreview() {
+    TextFieldSampleTheme {
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            BestFilterTextField()
         }
     }
 }
