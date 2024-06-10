@@ -77,8 +77,15 @@ class IdentifierTransformation : VisualTransformation {
     override fun filter(text: AnnotatedString): TransformedText {
         if (text.text.isEmpty()) {
             val placeholder = buildAnnotatedString {
+
                 withStyle(SpanStyle(color = Color.LightGray)) {
-                    append("6글자 - •")
+                    append("6글자 ")
+                }
+                withStyle(SpanStyle(color = Color.Black)) {
+                    append("-")
+                }
+                withStyle(SpanStyle(color = Color.LightGray)) {
+                    append(" •")
                 }
                 withStyle(SpanStyle(color = Color.Black)) {
                     append("••••••")
@@ -105,16 +112,14 @@ class IdentifierTransformation : VisualTransformation {
 
             return TransformedText(transformedText, object : OffsetMapping {
                 override fun originalToTransformed(offset: Int): Int {
-                    return if (offset <= 6) offset else offset + 1
+                    return if (offset <= 5) offset else offset + 1
                 }
 
                 override fun transformedToOriginal(offset: Int): Int {
-                    return if (offset <= 6) {
-                        0
-                    } else if (offset <= transformedText.length) {
-                        0
+                    return if (originalText.length <= 6) {
+                        originalText.length
                     } else {
-                       0
+                        7
                     }
                 }
             })
