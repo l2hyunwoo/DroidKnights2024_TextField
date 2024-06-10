@@ -1,6 +1,5 @@
 package dew.nunu.textfield.sample.screen
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -13,7 +12,6 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -33,7 +31,6 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import dew.nunu.textfield.sample.BuildConfig
 
 @Composable
 fun IdentifierScreen() {
@@ -51,9 +48,6 @@ fun IdentifierScreen() {
 @Composable
 fun IdentifierTextField() {
     var text by remember { mutableStateOf("") }
-    LaunchedEffect(text) {
-        Log.d(BuildConfig.APPLICATION_ID, "text: $text")
-    }
     BasicTextField(
         value = text,
         onValueChange = {
