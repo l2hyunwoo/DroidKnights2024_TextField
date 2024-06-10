@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import dew.nunu.textfield.sample.navigation.Filter
 import dew.nunu.textfield.sample.navigation.Identifier
-import dew.nunu.textfield.sample.navigation.Otp
+import dew.nunu.textfield.sample.navigation.Value
 
 @Composable
 fun HomeScreen(
@@ -22,14 +22,14 @@ fun HomeScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
+        Button(onClick = { navController.navigate(Value) }) {
+            Text(text = " String vs TextFieldValue")
+        }
         Button(onClick = { navController.navigate(Filter) }) {
-            Text(text = "Filter Samples")
+            Text(text = "OnValueChange")
         }
         Button(onClick = { navController.navigate(Identifier) }) {
-            Text(text = "Identifier Sample")
-        }
-        Button(onClick = { navController.navigate(Otp) }) {
-            Text(text = " OTP Sample")
+            Text(text = "Identifier")
         }
     }
 }

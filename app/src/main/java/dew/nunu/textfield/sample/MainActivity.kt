@@ -14,11 +14,9 @@ import androidx.navigation.compose.rememberNavController
 import dew.nunu.textfield.sample.navigation.Filter
 import dew.nunu.textfield.sample.navigation.Home
 import dew.nunu.textfield.sample.navigation.Identifier
-import dew.nunu.textfield.sample.navigation.Otp
 import dew.nunu.textfield.sample.navigation.Value
 import dew.nunu.textfield.sample.screen.HomeScreen
 import dew.nunu.textfield.sample.screen.IdentifierScreen
-import dew.nunu.textfield.sample.screen.OtpScreen
 import dew.nunu.textfield.sample.screen.TextChangedFilterSample
 import dew.nunu.textfield.sample.screen.TextFieldValueScreen
 import dew.nunu.textfield.sample.ui.theme.TextFieldSampleTheme
@@ -46,9 +44,6 @@ class MainActivity : ComponentActivity() {
                         }
                         composable<Identifier> {
                             IdentifierScreen()
-                        }
-                        composable<Otp> {
-                            OtpScreen()
                         }
                         composable<Value> {
                             TextFieldValueScreen()

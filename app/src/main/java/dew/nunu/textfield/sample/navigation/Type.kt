@@ -12,7 +12,4 @@ data object Filter
 data object Identifier
 
 @Serializable
-data object Otp
-
-@Serializable
 data object Value

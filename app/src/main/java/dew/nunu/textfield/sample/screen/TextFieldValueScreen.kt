@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -145,6 +146,16 @@ private fun CompositionTextField() {
     )
     Spacer(Modifier.height(8.dp))
     Text("Composition: ${text.composition}")
+    TextField(
+        value = text,
+        onValueChange = {
+            text = it
+        },
+        modifier = Modifier
+            .background(Color.LightGray.copy(alpha = 0.2f))
+            .padding(16.dp)
+
+    )
 }
 
 @Preview
