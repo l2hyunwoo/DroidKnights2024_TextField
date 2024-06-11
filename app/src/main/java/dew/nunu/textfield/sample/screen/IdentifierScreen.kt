@@ -71,7 +71,6 @@ class IdentifierTransformation : VisualTransformation {
     override fun filter(text: AnnotatedString): TransformedText {
         if (text.text.isEmpty()) {
             val placeholder = buildAnnotatedString {
-
                 withStyle(SpanStyle(color = Color.LightGray)) {
                     append("6글자 ")
                 }
@@ -110,11 +109,7 @@ class IdentifierTransformation : VisualTransformation {
                 }
 
                 override fun transformedToOriginal(offset: Int): Int {
-                    return if (originalText.length <= 6) {
-                        originalText.length
-                    } else {
-                        7
-                    }
+                    return originalText.length
                 }
             })
         }
